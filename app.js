@@ -9,5 +9,5 @@ document.querySelector('#connect').addEventListener('click', event => {
 });
 
 document.querySelector('#led').addEventListener('click', event => {
-    esp32.changeLED()
+    esp32.changeLed()
 });
