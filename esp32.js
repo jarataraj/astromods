@@ -24,7 +24,7 @@
         changeLed() {
             return this.device.gatt.getPrimaryService(SERVICE_UUID)
                 .then(service => service.getCharacteristic(LED_UUID))
-                .then(characteristic => characteristic.writeValue(Uint8Array([0])))
+                .then(characteristic => characteristic.writeValue(new Uint8Array([0])))
         }
     }
 
