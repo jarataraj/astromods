@@ -1,7 +1,7 @@
 document.querySelector('#connect').addEventListener('click', event => {
-    playbulbCandle.connect()
+    ESP32.connect()
         .then(() => {
-            console.log(playbulbCandle.device);
+            console.log(ESP32.device);
         })
         .catch(error => {
             console.error('Argh!', error);
