@@ -3,9 +3,9 @@
 
     const SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 
-    class ESP32 {
+    class Esp32 {
         constructor() {
-            this.device = null
+            this.device = null;
         }
         connect() {
             let options = {
@@ -14,11 +14,11 @@
                 ]
             };
             return navigator.bluetooth.requestDevice(options)
-                .then(function (device) {
+                .then(device => {
                     this.device = device;
-                }.bind(this));
+                });
         }
     }
 
-    window.esp32 = new ESP32();
+    window.esp32 = new Esp32();
 })();
