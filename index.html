@@ -8,11 +8,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body id="state">
+    <div id="disconnected">
+        <button id="connect" type="button">Connect</button>
+    </div>
 
-    <button id="connect" type="button">Connect</button>
-    <button id="connect" type="button">Disconnect</button>
-    <button id="led" type="button">LED</button>
+    <div id="connected">
+        <button id="led" type="button">LED</button>
+    </div>
+
+
+    <button id="theme" type="button">Light Mode</button>
 
     <script src="esp32.js"></script>
     <script src="app.js"></script>

@@ -1,0 +1,28 @@
+/* ------display control------
+/* when disconnected  */
+#connected {
+    display: none;
+  }
+
+#disconnected {
+    display: inherit;
+}
+/* when connected */
+.connected #connected {
+    display: inherit;
+}
+
+.connected #disconnected {
+    display: none;
+}
+
+/* ------theme control------ */
+body {
+    background-color: black;
+    color: white;
+}
+
+body.light-theme {
+    background-color: white;
+    color: black;
+}
