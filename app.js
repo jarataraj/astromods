@@ -11,13 +11,8 @@ document.querySelector('#connect').addEventListener('click', event => {
 });
 
 document.querySelector('#disconnect').addEventListener('click', event => {
-    esp32.disconnect()
-        .then(() => {
-            document.querySelector('#state').classList.remove('connected');
-        })
-        .catch(error => {
-            console.error('Argh!', error);
-        });
+    esp32.disconnect();
+    document.querySelector('#state').classList.remove('connected');
 });
 
 
