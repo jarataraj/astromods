@@ -3,8 +3,17 @@ document.querySelector('#connect').addEventListener('click', event => {
         .then(() => {
             console.log(esp32.device);
             document.querySelector('#state').classList.add('connected');
-            document.querySelector('#theme').innerHTML = "Dark Mode";
 
+        })
+        .catch(error => {
+            console.error('Argh!', error);
+        });
+});
+
+document.querySelector('#disconnect').addEventListener('click', event => {
+    esp32.disconnect()
+        .then(() => {
+            document.querySelector('#state').classList.remove('connected');
         })
         .catch(error => {
             console.error('Argh!', error);

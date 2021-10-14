@@ -21,6 +21,10 @@
                 });
         }
 
+        disconnect() {
+            return this.device.gatt.disconnect();
+        }
+
         changeLed() {
             return this.device.gatt.getPrimaryService(SERVICE_UUID)
                 .then(service => service.getCharacteristic(LED_UUID))
