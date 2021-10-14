@@ -17,12 +17,30 @@
 }
 
 /* ------theme control------ */
+
 body {
-    background-color: black;
-    color: white;
+    --background : #000;
+    --text : #ba0000;
 }
 
 body.light-theme {
-    background-color: white;
-    color: black;
+    --background: #eee;
+    --text: #333;
 }
+
+/* ------styling------ */
+
+body {
+    background: var(--background);
+}
+
+button {
+    background-color: var(--background);
+    border: 1px solid var(--text);
+    color: var(--text);
+    border-radius: .5em;
+    margin: 1em auto;
+    padding: .1em 1em;
+
+}
+
