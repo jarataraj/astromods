@@ -28,19 +28,60 @@ body.light-theme {
     --text: #333;
 }
 
-/* ------styling------ */
+/* ------styling------ */ 
 
 body {
     background: var(--background);
+    color: var(--text);
+    font-family: sans-serif;
 }
 
-button {
+button, label {
     background-color: var(--background);
     border: 1px solid var(--text);
-    color: var(--text);
     border-radius: .5em;
-    margin: 1em auto;
-    padding: .1em 1em;
-
+    margin: 1em;
+    padding: .2em .5em;
+    color: inherit;
 }
 
+legend {
+    border: none;
+    margin: 1em 0;
+    width: 100%;
+    text-align: center;
+}
+ fieldset {
+     border: none;
+     padding: 0;
+     display: inline-block;
+ }
+
+ /* form {
+     display: inline-block;
+ } */
+
+ /* ------tracking------ */
+
+ /* hide default radio inputs */
+ #tracking input {
+     position: absolute;
+     opacity: 0;
+     height: 0;
+     width: 0;
+ }
+
+ label {
+     position: relative;
+ }
+
+ input:checked + label::before {
+     position: absolute;
+     content: " ";
+     top: -4px;
+     bottom: -4px;
+     left: -4px;
+     right: -4px;
+     border: 1px solid var(--text);
+     border-radius: calc(.5em + 3px);
+ }

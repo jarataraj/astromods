@@ -5,15 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Astromods EQ Platform Remote</title>
     <link rel="icon" sizes="192x192" href="favicon.png">
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body id="state">
-    <div id="disconnected">
+    <div id="connected">
         <button id="connect" type="button">Connect</button>
     </div>
 
-    <div id="connected">
+    <div id="disconnected">
+        <form id="tracking">
+            <fieldset>
+                <legend>Tracking</legend>
+                <div>
+                    <input type="radio" id="trackingOff" name="tracking" value="trackingOff" checked>
+                    <label for="trackingOff">Off</label>
+
+                    <input type="radio" id="trackingStellar" name="tracking" value="trackingStellar">
+                    <label for="trackingStellar">Stellar</label>
+
+                    <input type="radio" id="trackingLunar" name="tracking" value="trackingLunar">
+                    <label for="trackingLunar">Lunar</label>
+                </div>
+            </fieldset>
+        </form>
+
+
         <button id="led" type="button">LED</button>
         <button id="disconnect" type="button">Disconnect</button>
     </div>
