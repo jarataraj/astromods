@@ -10,6 +10,28 @@ document.querySelector('#connect').addEventListener('click', event => {
         });
 });
 
+//------ Mount Move
+document.querySelector('#move_backwards').addEventListener('mousedown', event => {
+    esp32.moveBackwards();
+});
+document.querySelector('#move_backwards').addEventListener('mouseup', event => {
+    esp32.standStill();
+});
+document.querySelector('#move_forwards').addEventListener('mousedown', event => {
+    esp32.moveForwards();
+    window.addEventListener('mouseup', event => {
+        esp32.standStill();
+    });
+});
+
+// moveForwardsButton2 = querySelector('#move_forwards_2')
+// moveForwardsButton2.onmousedown event => {
+//     esp32.moveForwards();
+//     window.onmouseup = esp32.standStill();
+// };
+
+
+
 document.querySelector('#disconnect').addEventListener('click', event => {
     esp32.disconnect();
     document.querySelector('#state').classList.remove('connected');
