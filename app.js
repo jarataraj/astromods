@@ -10,25 +10,57 @@ document.querySelector('#connect').addEventListener('click', event => {
         });
 });
 
-//------ Mount Move
+// ====== Mount Move ======
+// ------ move backwards ------
+// touch
+document.querySelector('#move_backwards').addEventListener('touchstart', event => {
+    event.preventDefault();
+    let move = esp32.moveBackwards();
+    window.addEventListener('touchend', event => {
+        event.preventDefault();
+        move.then(() => esp32.standStill());
+    }, { once: true });
+});
+// mouse
 document.querySelector('#move_backwards').addEventListener('mousedown', event => {
-    esp32.moveBackwards();
-});
-document.querySelector('#move_backwards').addEventListener('mouseup', event => {
-    esp32.standStill();
-});
-document.querySelector('#move_forwards').addEventListener('mousedown', event => {
-    esp32.moveForwards();
+    let movement = esp32.moveBackwards();
     window.addEventListener('mouseup', event => {
-        esp32.standStill();
-    });
+        movement.then(() => esp32.standStill());
+    }, { once: true });
 });
 
-// moveForwardsButton2 = querySelector('#move_forwards_2')
-// moveForwardsButton2.onmousedown event => {
-//     esp32.moveForwards();
-//     window.onmouseup = esp32.standStill();
-// };
+/* If using global movement variable and the pattern below, double click will lock it into movement 
+   and still throws "GATT operation already in progress" errors.
+   If desired, could create a "movement queue" instead. Mouseup/touchend listener 
+   would be global and would check:  if (movementQueue[last] = moveForwards or moveBackwards) {append standStill}
+   */
+
+// let movement = Promise.resolve();
+// document.querySelector('#move_backwards').addEventListener('mousedown', event => {
+//     movement.then(esp32.moveBackwards());
+//     window.addEventListener('mouseup', event => {
+//         movement.then(() => { movement = esp32.standStill() });
+//     }, { once: true });
+// });
+
+
+// ------ move forwards ------
+// touch
+document.querySelector('#move_forwards').addEventListener('touchstart', event => {
+    event.preventDefault();
+    let move = esp32.moveForwards();
+    window.addEventListener('touchend', event => {
+        event.preventDefault();
+        move.then(() => esp32.standStill());
+    }, { once: true });
+});
+// mouse
+document.querySelector('#move_forwards').addEventListener('mousedown', event => {
+    let move = esp32.moveForwards();
+    window.addEventListener('mouseup', event => {
+        move.then(() => esp32.standStill());
+    }, { once: true });
+});
 
 
 
