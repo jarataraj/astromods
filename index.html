@@ -7,45 +7,187 @@
     <!-- <link rel="icon" sizes="192x192" href="favicon.png"> -->
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@100;200&family=Inconsolata:wght@200;300&family=Roboto+Mono:wght@200;300&display=swap"
+        rel="stylesheet">
+    <!-- Scrollbar -->
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
 </head>
 
 <body id="state">
-    <div id="disconnected">
+    <div id="disconnected-page" class="page">
+        <div id="loaderBox">
+            <div id="loader"></div>
+        </div>
+        <p id="disconnected-label">Disconnected</p>
         <button id="connect" type="button">Connect</button>
+        <button id="theme" class="theme" type="button">Light Mode</button>
+        <!-- <button id="connect" type="button">Connect</button>
+        <div class="loader"></div> -->
     </div>
 
-    <div id="connected">
-        <button id="move_backwards" type="button">&#60;</button>
-        <button id="move_forwards" type="button">&#62;</button>
-        <button id="move_forwards_2" type="button">&#62;</button>
-
+    <div id="home-page" class="page">
+        <div class="button-container">
+            <button id="disconnect" type="button">Disconnect</button>
+            <button id="advanced" type="button">Advanced</button>
+        </div>
 
         <form id="tracking">
             <fieldset>
                 <legend>Tracking</legend>
-                <div>
-                    <input type="radio" id="trackingOff" name="tracking" value="trackingOff" checked>
+                <div id="tracking-controls">
+                    <input type="radio" id="trackingOff" name="tracking" value="0">
                     <label for="trackingOff">Off</label>
 
-                    <input type="radio" id="trackingStellar" name="tracking" value="trackingStellar">
+                    <input type="radio" id="trackingStellar" name="tracking" value="1">
                     <label for="trackingStellar">Stellar</label>
 
-                    <input type="radio" id="trackingLunar" name="tracking" value="trackingLunar">
+                    <input type="radio" id="trackingLunar" name="tracking" value="2">
                     <label for="trackingLunar">Lunar</label>
                 </div>
             </fieldset>
         </form>
 
+        <div class="button-container">
+            <button id="reset" type="button">Reset</button>
+            <!-- <button id="center" type="button">Center</button> -->
+            <button id="led" type="button">LED</button>
+            <button id="theme--brief" class="theme" type="button">Light</button>
+        </div>
 
-        <button id="led" type="button">LED</button>
-        <button id="disconnect" type="button">Disconnect</button>
     </div>
 
+    <div id="advanced-page" class="page">
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="advanced-back" class="back" type="button">Back</button>
+        </div>
+        <button id="tuning" type="button">Tune</button>
+        <button id="align" type="button">Precision Align</button>
+        <button id="mount-settings" type="button">Mount Settings</button>
+        <button id="mount-settings" type="button">App Settings</button>
+    </div>
 
-    <button id="theme" type="button">Light Mode</button>
+    <div id="tuning-page" class="page">
+
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="tuning-back" class="back" type="button">Back</button>
+        </div>
+
+        <button id="set-start" type="button">Set Start</button>
+
+        <div id='tuning-controls'>
+
+            <button id="move_forwards" type="button">
+                <div class="arrow-container">
+                    <div class="left-arrow-point"></div>
+                    <div class="left-arrow-shaft"></div>
+                </div>
+            </button>
+
+            <button id="move_backwards" type="button">
+                <div class="arrow-container">
+                    <div class="right-arrow-point"></div>
+                    <div class="right-arrow-shaft"></div>
+                </div>
+            </button>
+
+
+        </div>
+
+        <button id="set-end" type="button">Set End</button>
+
+        <button id="tuning-info" type="button">Instructions</button>
+    </div>
+    <!-- <div id="tuning-page" class="page">
+        <button id="tuning-back" class="back" type="button">Back</button>
+        <div id='tuning-controls'>
+            <button id="move_backwards" type="button">&#60;</button>
+            <button id="move_forwards" type="button">&#62;</button>
+        </div>
+        <button id="tuning-info" type="button">Instructions</button>
+    </div> -->
+
+    <div class="page" id="tuning-info-page">
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="tuning-info-back" class="back" type="button">Back</button>
+        </div>
+        <article data-simplebar>
+            <h1>Tips</h1>
+            <p>
+                For best results, use a reticle eyepiece and precision align the EQ platfrom before tuning the tracking
+                rate.
+                Prevent any external movement of the scope while it is tracking during the tuning procedure - consider
+                using clutches if you have them or tune on a night with very little wind.
+            </p>
+            <h1>Instructions</h1>
+            <p>
+                Set up the scope and EQ platform as normal. Set tracking to "stellar." Choose a star near the celestial
+                equator and center it in the eyepiece. Click the "set start" button. Allow the platform to track for
+                some
+                time. Once a star is no longer centered, use only the arrow keys on the tracking menu to re-center the
+                star as best you can. Do not push the scope by hand. If the platform is not perfectly aligned, you may
+                be
+                unable to re-center the star. This is OK; it will not affect tuning accuracy as long as you position the
+                star as close to center as you can using the arrow keys only. Once the star is near-centered, press the
+                "set end" button. The platform will then calculate and save the new tracking rate.
+            </p>
+            <h1>More Tips</h1>
+            <p>
+                The platform will not calculate and save a new tracking rate until "set end" is pressed. When "set end"
+                is pressed, it will use the most recent "set start" and the time elapsed between to calculate a new
+                rate. In other words, the "set start" and arrow buttons will have no effect on tracking rate until "set
+                end" is pressed.
+            </p>
+        </article>
+    </div>
+    <!-- <div class="page" id="tuning-info-page">
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="tuning-info-back" class="back" type="button">Back</button>
+        </div>
+        <p>
+            For best results, tune the platform's tracking rate after precision aligning and use a reticle eyepiece.
+        </p>
+        <h1>Instructions:</h1>
+        <p>
+            Choose a star near the celestial equator, and center it in the eyepiece. Click the "set start" button. Allow
+            the mount to track for some time, until the star is no longer centered.
+        </p>
+    </div> -->
+
+    <div class="page" id="align-page">
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="align-back" class="back" type="button">Back</button>
+        </div>
+        <button id="align-move" type="button">Move</button>
+        <button id="align-info" type="button">Instructions</button>
+    </div>
+
+    <div class="page" id="align-info-page">
+        <div class="back-container">
+            <div class="arrow"></div>
+            <button id="align-info-back" class="back" type="button">Back</button>
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum
+        </p>
+    </div>
 
     <script src="esp32.js"></script>
     <script src="app.js"></script>
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </body>
 
 </html>

@@ -1,13 +1,39 @@
+
+// ====== Connections ======
+//Connect
 document.querySelector('#connect').addEventListener('click', event => {
+    //new
+    // esp32.request()
+    //     .then(() => {
+    //         //Add loading elements
+    //         document.querySelector('#loader').style.display = 'block';
+    //         document.querySelector('#connect').innerHTML = 'Connecting';
+    //         // Connect
+    //         esp32.connect()
+    //     }).then(() => {
+    //         //Remove loading elements 
+    //         document.querySelector('#loader').style.display = 'none';
+    //         document.querySelector('#connect').innerHTML = 'Connect';
+    //     })
+
+
+    // old
     esp32.connect()
         .then(() => {
             console.log(esp32.device);
-            document.querySelector('#state').classList.add('connected');
-
+            // document.querySelector('#state').classList.add('connected');
+            // changePage('#disconnected-page', '#home-page');
         })
         .catch(error => {
             console.error('Argh!', error);
         });
+});
+
+//Disconnect
+document.querySelector('#disconnect').addEventListener('click', event => {
+    esp32.disconnect();
+    // changePage('home-page', 'disconnected-page')
+    // document.querySelector('#state').classList.remove('connected');
 });
 
 // ====== Mount Move ======
@@ -43,7 +69,6 @@ document.querySelector('#move_backwards').addEventListener('mousedown', event =>
 //     }, { once: true });
 // });
 
-
 // ------ move forwards ------
 // touch
 document.querySelector('#move_forwards').addEventListener('touchstart', event => {
@@ -62,27 +87,115 @@ document.querySelector('#move_forwards').addEventListener('mousedown', event => 
     }, { once: true });
 });
 
+// ====== set tracking ======
+const trackingButtons = document.querySelectorAll("#tracking-controls > input");
+for (const button of trackingButtons) {
+    // touch
+    button.addEventListener('touchstart', event => {
+        esp32.setTracking(button.value);
+    })
+    // mouse
+    button.addEventListener('mousedown', event => {
+        esp32.setTracking(button.value);
+    })
+};
 
-
-document.querySelector('#disconnect').addEventListener('click', event => {
-    esp32.disconnect();
-    document.querySelector('#state').classList.remove('connected');
+// ====== Navigation buttons ======
+document.querySelector('#advanced').addEventListener('click', event => {
+    changePage('#home-page', '#advanced-page');
+});
+document.querySelector('#advanced-back').addEventListener('click', event => {
+    changePage('#advanced-page', '#home-page');
+});
+document.querySelector('#tuning').addEventListener('click', event => {
+    changePage('#advanced-page', '#tuning-page');
+});
+document.querySelector('#tuning-back').addEventListener('click', event => {
+    changePage('#tuning-page', '#advanced-page');
+});
+document.querySelector('#tuning-info').addEventListener('click', event => {
+    changePage('#tuning-page', '#tuning-info-page');
+});
+document.querySelector('#tuning-info-back').addEventListener('click', event => {
+    changePage('#tuning-info-page', '#tuning-page');
+});
+document.querySelector('#align').addEventListener('click', event => {
+    changePage('#advanced-page', '#align-page');
+});
+document.querySelector('#align-back').addEventListener('click', event => {
+    changePage('#align-page', '#advanced-page');
+});
+document.querySelector('#align-info').addEventListener('click', event => {
+    changePage('#align-page', '#align-info-page');
+});
+document.querySelector('#align-info-back').addEventListener('click', event => {
+    changePage('#align-info-page', '#align-page');
 });
 
 
+//LED
 document.querySelector('#led').addEventListener('click', event => {
     esp32.changeLed()
 });
 
-document.querySelector('#theme').addEventListener('click', event => {
-    document.body.classList.toggle('light-theme');
-    theme = document.querySelector('#theme').innerHTML;
-    if (theme == "Dark Mode") {
-        document.querySelector('#theme').innerHTML = "Light Mode";
-    }
-    else {
-        document.querySelector('#theme').innerHTML = "Dark Mode";
-    }
+//Light/Dark Mode
+
+let themeButtons = document.querySelectorAll('.theme');
+themeButtons.forEach(button => {
+    button.addEventListener('click', event => {
+        document.body.classList.toggle('light-theme');
+        console.log('registered theme click')
+        theme = document.querySelector('#theme').innerHTML;
+        if (theme == "Dark Mode") {
+            document.querySelector('#theme').innerHTML = "Light Mode";
+            document.querySelector('#theme--brief').innerHTML = "Light";
+        }
+        else {
+            document.querySelector('#theme').innerHTML = "Dark Mode";
+            document.querySelector('#theme--brief').innerHTML = "Dark";
+        }
+    })
 })
 
+// document.querySelector('.theme').addEventListener('click', event => {
+//     document.body.classList.toggle('light-theme');
+//     console.log('registered theme click')
+//     theme = document.querySelector('#theme').innerHTML;
+//     if (theme == "Dark Mode") {
+//         document.querySelector('#theme').innerHTML = "Light Mode";
+//         document.querySelector('#theme--brief').innerHTML = "Light";
+//     }
+//     else {
+//         document.querySelector('#theme').innerHTML = "Dark Mode";
+//         document.querySelector('#theme--brief').innerHTML = "Dark";
+//     }
+// })
+
+// document.querySelector('#theme').addEventListener('click', event => {
+//     document.body.classList.toggle('light-theme');
+//     theme = document.querySelector('#theme').innerHTML;
+//     if (theme == "Dark Mode") {
+//         document.querySelector('#theme').innerHTML = "Light Mode";
+//         document.querySelector('#theme-brief').innerHTML = "Light";
+//     }
+//     else {
+//         document.querySelector('#theme').innerHTML = "Dark Mode";
+//         document.querySelector('#theme-brief').innerHTML = "Dark";
+//     }
+// })
+// document.querySelector('#theme-brief').addEventListener('click', event => {
+//     document.body.classList.toggle('light-theme');
+//     theme = document.querySelector('#theme-brief').innerHTML;
+//     if (theme == "Dark Mode") {
+//         document.querySelector('#theme-brief').innerHTML = "Light Mode";
+//     }
+//     else {
+//         document.querySelector('#theme-brief').innerHTML = "Dark Mode";
+//     }
+// })
+
+function changePage(from, to) {
+    document.querySelector(from).style.display = 'none';
+    document.querySelector(to).style.display = 'inherit';
+}
 

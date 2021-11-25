@@ -1,18 +1,20 @@
-/* ------display control------
-/* when disconnected  */
-#connected {
-    display: none;
-  }
+/* Fonts */
+/* 
+font-family: 'Azeret Mono', monospace;
+font-family: 'Inconsolata', monospace;
+font-family: 'Roboto Mono', monospace; 
+*/
 
-#disconnected {
+/* ------display control------ */
+#disconnected-page {
     display: inherit;
 }
-/* when connected */
-.connected #connected {
-    display: inherit;
-}
-
-.connected #disconnected {
+#home-page,
+#advanced-page,
+#tuning-page,
+#tuning-info-page,
+#align-page,
+#align-info-page {
     display: none;
 }
 
@@ -25,57 +27,229 @@ body {
 
 body.light-theme {
     --background: #eee;
-    --text: #333;
+    --text: #000;
 }
 
-/* ------styling------ */ 
+/* ------common elements styling------ */ 
 
 body {
     background: var(--background);
     color: var(--text);
-    font-family: sans-serif;
+    /* font-family: 'Azeret Mono', monospace; font-weight: 200; font-size: 15px; */
+    /* font-family: 'Inconsolata', monospace; font-weight: 300; font-size: 18px; */
+    font-family: 'Roboto Mono', monospace; font-weight: 300;
 }
 
-button, label {
+/* Buttons and labels */
+button, label, #disconnected-label {
     background-color: var(--background);
     border: 1px solid var(--text);
     border-radius: .5em;
-    margin: 1em;
+    margin: 1em 0;
     padding: .2em .5em;
     color: inherit;
+    font-weight: inherit;
+}
+/* modify disconnected to hide border */
+#disconnected-label {
+    border-color: var(--background);
+    /* default: hidden until first connection */
+    visibility: hidden;
 }
 
+/* ------ page layout ------ */
+
+.page {
+    height: 30rem;
+    width: 15rem;
+    margin: 1rem 0rem;
+    border: 1px solid var(--text);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 1em;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* .back {
+    align-self: baseline;
+} */
+
+/* ------ Back buttons ------ */
+.arrow {
+    height: 1.12em;
+    width: 1.12em;
+    position: absolute;
+    border-top: solid 1px var(--text);
+    border-left: solid 1px var(--text);
+    top: .25em;
+    left: -.59em;
+    transform: rotate(-45deg);
+}
+
+button.back {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: 0px;
+    padding-left: 2px;
+    margin: 0;
+}
+
+.back-container {
+    font-size: 16px;
+    position: relative;
+    padding: 0px;
+    align-self: baseline;
+    margin: 0 1em 1em;
+}
+
+/* ====== page-specific elements ====== */
+
+/* ------ disconnected page ------ */
+/* ------ loader */
+#loaderBox {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    /* offsets padding of page */
+    margin-top: -1em;
+}
+
+#loader {
+    display: none;
+    border: 1px solid var(--background); 
+    border-top: 1px solid var(--text);
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+    animation: spin 1.5s linear infinite;
+    position: absolute;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ------ Tuning page ------ */
+/* ------ Motion control arrows */
+.arrow-container {
+    display: inline-block;
+    position: relative;
+}
+
+.left-arrow-point {
+    height: 1.12em;
+    width: 1.12em;
+    position: absolute;
+    border-top: solid 1px var(--text);
+    border-left: solid 1px var(--text);
+    top: .25em;
+    left: -.59em;
+    transform: rotate(-45deg);
+}
+
+.left-arrow-shaft {
+    height: 1.55em;
+    width: .2em;
+    border: 1px solid var(--text);
+    border-left: none;
+    border-radius: 2px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.right-arrow-point {
+    height: 1.12em;
+    width: 1.12em;
+    position: absolute;
+    border-top: solid 1px var(--text);
+    border-right: solid 1px var(--text);
+    top: .25em;
+    right: -.59em;
+    transform: rotate(45deg);
+}
+
+.right-arrow-shaft {
+    height: 1.55em;
+    width: .2em;
+    border: 1px solid var(--text);
+    border-right: none;
+    border-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#tuning-controls{
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-evenly;
+}
+
+#move_forwards, #move_backwards {
+    border: none;
+}
+#move_forwards {
+    padding-left: 1.3em;
+}
+#move_backwards{
+    padding-right: 1.3em;
+}
+
+/* ------ home page ------ */
+.button-container {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+}
+/* ------ tracking controls */
+form {
+    align-self: stretch;
+}
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: 100%;
+}
 legend {
     border: none;
-    margin: 1em 0;
-    width: 100%;
+    margin: 0;
     text-align: center;
 }
- fieldset {
-     border: none;
-     padding: 0;
-     display: inline-block;
- }
-
- /* form {
-     display: inline-block;
- } */
-
- /* ------tracking------ */
-
- /* hide default radio inputs */
- #tracking input {
+#tracking-controls {
+    display: flex;
+    justify-content: space-between;
+}
+/* hide default radio inputs */
+#tracking input {
      position: absolute;
      opacity: 0;
      height: 0;
      width: 0;
- }
+}
 
- label {
+label {
      position: relative;
- }
+}
 
- input:checked + label::before {
+input:checked + label::before {
      position: absolute;
      content: " ";
      top: -4px;
@@ -84,7 +258,20 @@ legend {
      right: -4px;
      border: 1px solid var(--text);
      border-radius: calc(.5em + 3px);
- }
+}
+
+/* ------ info pages ------ */
+article {
+    align-self: stretch;
+    min-height: 1em;
+}
+
+h1 {
+    font-size: 1.2em;
+    font-weight: 200;
+    border-bottom: 1px solid var(--text);
+    display: inline;
+}
 
 /* ------ Prevent mobile highlighting on touch and hold ------ */
 button {
@@ -92,5 +279,5 @@ button {
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     user-select: none; 
-                     
+
 }
