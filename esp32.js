@@ -61,15 +61,25 @@
                                     return Promise.all([
                                         this.cacheCharacteristic(service, LED_UUID),
                                         this.cacheCharacteristic(service, MOVE_MOUNT),
+                                        this.cacheCharacteristic(service, RESET_UUID),
+                                        this.cacheCharacteristic(service, TRACKING_UUID),
+                                        this.cacheCharacteristic(service, TUNE_START_UUID),
+                                        this.cacheCharacteristic(service, TUNE_END_UUID)
                                     ])
                                 }),
                             ]);
-                        }, () => { console.log('Error connecting. Try again') })
+                        }, () => {
+                            console.log('Error connecting. Try again')
+                        })
                         .then(() => {
-                            this.tracking = this.getTracking();
-                            if (this.tracking = 1) {
+                            return this.getTracking();
+                        })
+                        .then((data) => {
+                            this.tracking = data.getUint8(0) - 48;
+                            console.log("tracking recorded as " + this.tracking)
+                            if (this.tracking == 1) {
                                 document.querySelector('#trackingStellar').checked = true;
-                            } else if (tracking = 2) {
+                            } else if (this.tracking == 2) {
                                 document.querySelector('#trackingLunar').checked = true;
                             } else {
                                 document.querySelector('#trackingOff').checked = true;
@@ -124,6 +134,10 @@
                             return Promise.all([
                                 this.cacheCharacteristic(service, LED_UUID),
                                 this.cacheCharacteristic(service, MOVE_MOUNT),
+                                this.cacheCharacteristic(service, RESET_UUID),
+                                this.cacheCharacteristic(service, TRACKING_MOUNT),
+                                this.cacheCharacteristic(service, TUNE_START_UUID),
+                                this.cacheCharacteristic(service, TUNE_END_MOUNT)
                             ])
                         }),
                     ]);
@@ -169,9 +183,10 @@
             return this.readCharacteristicValue(TRACKING_UUID);
         }
         setTracking(tracking) {
-            return this.writeCharacteristicValue(TRACKING_UUID, Int8Array([tracking]))
+            return this.writeCharacteristicValue(TRACKING_UUID, new Int8Array([tracking]))
         }
         reset() {
+            console.log("writing reset");
             return this.writeCharacteristicValue(RESET_UUID, new Int8Array([0]))
         }
         tuneStart() {

@@ -86,19 +86,28 @@ document.querySelector('#move_forwards').addEventListener('mousedown', event => 
         move.then(() => esp32.standStill());
     }, { once: true });
 });
+// ------ set tune start and end ------
+// tuneStart
+
+// tuneEnd
 
 // ====== set tracking ======
 const trackingButtons = document.querySelectorAll("#tracking-controls > input");
 for (const button of trackingButtons) {
-    // touch
-    button.addEventListener('touchstart', event => {
-        esp32.setTracking(button.value);
-    })
-    // mouse
-    button.addEventListener('mousedown', event => {
+    button.addEventListener('click', event => {
+        console.log("detected tracking change to " + button.value)
         esp32.setTracking(button.value);
     })
 };
+
+// ====== Reset =======
+document.querySelector('#reset').addEventListener('click', event => {
+    console.log("detected reset");
+    esp32.reset();
+});
+
+// ------ Center ------
+//TODO
 
 // ====== Navigation buttons ======
 document.querySelector('#advanced').addEventListener('click', event => {
@@ -157,42 +166,6 @@ themeButtons.forEach(button => {
     })
 })
 
-// document.querySelector('.theme').addEventListener('click', event => {
-//     document.body.classList.toggle('light-theme');
-//     console.log('registered theme click')
-//     theme = document.querySelector('#theme').innerHTML;
-//     if (theme == "Dark Mode") {
-//         document.querySelector('#theme').innerHTML = "Light Mode";
-//         document.querySelector('#theme--brief').innerHTML = "Light";
-//     }
-//     else {
-//         document.querySelector('#theme').innerHTML = "Dark Mode";
-//         document.querySelector('#theme--brief').innerHTML = "Dark";
-//     }
-// })
-
-// document.querySelector('#theme').addEventListener('click', event => {
-//     document.body.classList.toggle('light-theme');
-//     theme = document.querySelector('#theme').innerHTML;
-//     if (theme == "Dark Mode") {
-//         document.querySelector('#theme').innerHTML = "Light Mode";
-//         document.querySelector('#theme-brief').innerHTML = "Light";
-//     }
-//     else {
-//         document.querySelector('#theme').innerHTML = "Dark Mode";
-//         document.querySelector('#theme-brief').innerHTML = "Dark";
-//     }
-// })
-// document.querySelector('#theme-brief').addEventListener('click', event => {
-//     document.body.classList.toggle('light-theme');
-//     theme = document.querySelector('#theme-brief').innerHTML;
-//     if (theme == "Dark Mode") {
-//         document.querySelector('#theme-brief').innerHTML = "Light Mode";
-//     }
-//     else {
-//         document.querySelector('#theme-brief').innerHTML = "Dark Mode";
-//     }
-// })
 
 function changePage(from, to) {
     document.querySelector(from).style.display = 'none';
